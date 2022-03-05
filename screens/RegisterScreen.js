@@ -7,16 +7,22 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase/firebase";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { CommonActions } from "@react-navigation/native";
 
-const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+const RegisterScreen = ({ navigation }) => {
+  const [name, setName] = useState("");
   const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        // navigation.navigate("ChatScreen");
+
         const resetAction = CommonActions.reset({
           index: 1,
           routes: [
@@ -33,13 +39,13 @@ const LoginScreen = ({ navigation }) => {
     return unsubscribe;
   }, []);
 
-  const Login = () => {
-    signInWithEmailAndPassword(auth, email, pass)
+  const Register = () => {
+    createUserWithEmailAndPassword(auth, email, pass)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log(user.email);
-        // alert("Registered Successfully");
+        alert("Registered Successfully");
         // navigation.navigate("ChatScreen", { name: name });
         // ...
       })
@@ -49,17 +55,35 @@ const LoginScreen = ({ navigation }) => {
       });
   };
 
-  const continueToHome = () => {
-    navigation.navigate("ChatScreen", { name: name });
-  };
-
-  const continueToRegister = () => {
-    navigation.navigate("Register");
+  const continueToLogin = () => {
+    navigation.navigate("Login");
   };
 
   return (
     <View style={styles.container}>
-      <Text>LoginScreen</Text>
+      <Text>Register Screen</Text>
+      {/* <View style={styles.inputWrap}>
+        <TextInput
+          style={styles.input1}
+          autoCapitalize="none"
+          autoCorrect={false}
+          keyboardType="email-address"
+          returnKeyType="next"
+          placeholder="Username"
+          placeholderTextColor="#BDBDBD"
+          // value={chars}
+          //   value={props.values.username}
+          onChangeText={(text) => {
+            console.log(text);
+            // setChars(text);
+            setName(text);
+            // callUsernameApi(text);
+          }}
+          //   ref={textinputemail}
+          value={name}
+        />
+      </View>
+       */}
       <View style={styles.inputWrap}>
         <TextInput
           style={styles.input1}
@@ -86,7 +110,7 @@ const LoginScreen = ({ navigation }) => {
           style={styles.input1}
           autoCapitalize="none"
           autoCorrect={false}
-          // keyboardType="default"
+          // keyboardType="password"
           returnKeyType="next"
           placeholder="Password"
           placeholderTextColor="#BDBDBD"
@@ -104,13 +128,13 @@ const LoginScreen = ({ navigation }) => {
       </View>
       <View>
         <TouchableOpacity>
-          <Text style={styles.button} onPress={Login}>
-            sign in
+          <Text style={styles.button} onPress={Register}>
+            Sign Up
           </Text>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={styles.button} onPress={continueToRegister}>
-            Sign Up
+          <Text style={styles.button} onPress={continueToLogin}>
+            Login Page
           </Text>
         </TouchableOpacity>
       </View>
@@ -118,7 +142,7 @@ const LoginScreen = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -150,7 +174,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     borderRadius: 35,
-    width: "100%",
+    width: "90%",
     textAlign: "center",
     fontSize: 20,
     color: "black",
