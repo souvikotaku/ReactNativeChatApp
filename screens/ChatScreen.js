@@ -11,12 +11,17 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-const Chatscreen = ({ navigation }) => {
+const Chatscreen = ({ route, navigation }) => {
   const [messages, setMessages] = useState([]);
+  const { groupName, collectionName } = route.params;
 
   useEffect(() => {
-    const collectionRef = collection(db, "chats");
+    const collectionRef = collection(db, collectionName);
     const q = query(collectionRef, orderBy("createdAt", "desc"));
+
+    navigation.setOptions({
+      headerTitle: groupName,
+    });
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       setMessages(
@@ -39,7 +44,7 @@ const Chatscreen = ({ navigation }) => {
       GiftedChat.append(previousMessages, messages)
     );
     const { _id, createdAt, text, user } = messages[0];
-    addDoc(collection(db, "chats"), {
+    addDoc(collection(db, collectionName), {
       _id,
       createdAt,
       text,

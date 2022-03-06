@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChatScreen from "./screens/ChatScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
+import ChatList from "./screens/ChatList";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -48,11 +49,19 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="ChatScreen"
-          component={ChatScreen}
+          name="ChatList"
+          component={ChatList}
           options={{
             title: "Home",
             headerBackVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="ChatScreen"
+          component={ChatScreen}
+          options={{
+            title: "Group",
+            headerBackVisible: true,
           }}
         />
       </Stack.Navigator>

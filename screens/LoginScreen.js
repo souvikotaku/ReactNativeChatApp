@@ -4,6 +4,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase/firebase";
@@ -22,7 +24,7 @@ const LoginScreen = ({ navigation }) => {
           routes: [
             {
               // name: newData === null ? "Home" : "Homebkup",
-              name: "ChatScreen",
+              name: "ChatList",
             },
           ],
         });
@@ -58,63 +60,74 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>LoginScreen</Text>
-      <View style={styles.inputWrap}>
-        <TextInput
-          style={styles.input1}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="email-address"
-          returnKeyType="next"
-          placeholder="Email"
-          placeholderTextColor="#BDBDBD"
-          // value={chars}
-          //   value={props.values.username}
-          onChangeText={(text) => {
-            console.log(text);
-            // setChars(text);
-            setEmail(text);
-            // callUsernameApi(text);
-          }}
-          //   ref={textinputemail}
-          value={email}
-        />
-      </View>
-      <View style={styles.inputWrap}>
-        <TextInput
-          style={styles.input1}
-          autoCapitalize="none"
-          autoCorrect={false}
-          // keyboardType="default"
-          returnKeyType="next"
-          placeholder="Password"
-          placeholderTextColor="#BDBDBD"
-          // value={chars}
-          //   value={props.values.username}
-          onChangeText={(text) => {
-            console.log(text);
-            // setChars(text);
-            setPass(text);
-            // callUsernameApi(text);
-          }}
-          //   ref={textinputemail}
-          value={pass}
-        />
-      </View>
-      <View>
-        <TouchableOpacity>
-          <Text style={styles.button} onPress={Login}>
-            sign in
+    <ImageBackground
+      style={{ width: "100%", height: "100%", flex: 1 }}
+      resizeMode="cover"
+      source={require("../assets/wall1.jpg")}
+    >
+      <Image source={require("../assets/mainLogo.png")} style={styles.logo} />
+      <View style={styles.container}>
+        <Text style={{ fontSize: 30 }}>Login</Text>
+        <View style={styles.inputWrap}>
+          <TextInput
+            style={styles.input1}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            returnKeyType="next"
+            placeholder="Email"
+            placeholderTextColor="purple"
+            // value={chars}
+            //   value={props.values.username}
+            onChangeText={(text) => {
+              console.log(text);
+              // setChars(text);
+              setEmail(text);
+              // callUsernameApi(text);
+            }}
+            //   ref={textinputemail}
+            value={email}
+          />
+        </View>
+        <View style={styles.inputWrap}>
+          <TextInput
+            style={styles.input1}
+            autoCapitalize="none"
+            autoCorrect={false}
+            // keyboardType="default"
+            returnKeyType="next"
+            placeholder="Password"
+            placeholderTextColor="purple"
+            // value={chars}
+            //   value={props.values.username}
+            onChangeText={(text) => {
+              console.log(text);
+              // setChars(text);
+              setPass(text);
+              // callUsernameApi(text);
+            }}
+            //   ref={textinputemail}
+            value={pass}
+          />
+        </View>
+        <View style={{ width: "90%" }}>
+          <TouchableOpacity style={{ marginTop: 10 }} onPress={Login}>
+            <Text style={styles.button}>Sign in</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ marginTop: 10 }}
+            onPress={continueToRegister}
+          >
+            <Text style={styles.button2}>Sign up page</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={{ fontSize: 15, color: "pink" }}>
+            made by Souvik Das
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.button} onPress={continueToRegister}>
-            Sign Up
-          </Text>
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -123,9 +136,10 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     alignItems: "center",
     justifyContent: "center",
+    height: "100%",
   },
   input1: {
     paddingHorizontal: 10,
@@ -138,7 +152,7 @@ const styles = StyleSheet.create({
     height: 56,
     marginTop: 10,
     borderWidth: 2,
-    borderColor: "#FFF395",
+    borderColor: "lightblue",
     backgroundColor: "white",
     borderRadius: 35,
     opacity: 0.6,
@@ -146,13 +160,26 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   button: {
-    backgroundColor: "#FFF395",
+    backgroundColor: "#b92962",
     padding: 10,
-    marginTop: 10,
     borderRadius: 35,
     width: "100%",
     textAlign: "center",
     fontSize: 20,
-    color: "black",
+    color: "pink",
+  },
+  button2: {
+    backgroundColor: "#e74d87",
+    padding: 10,
+    borderRadius: 35,
+    width: "100%",
+    textAlign: "center",
+    fontSize: 20,
+    color: "pink",
+  },
+  logo: {
+    alignSelf: "center",
+    marginTop: "13%",
+    marginBottom: "-45%",
   },
 });

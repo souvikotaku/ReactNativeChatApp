@@ -4,6 +4,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  ImageBackground,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase/firebase";
@@ -28,7 +30,7 @@ const RegisterScreen = ({ navigation }) => {
           routes: [
             {
               // name: newData === null ? "Home" : "Homebkup",
-              name: "ChatScreen",
+              name: "ChatList",
             },
           ],
         });
@@ -60,9 +62,17 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Register Screen</Text>
-      {/* <View style={styles.inputWrap}>
+    <ImageBackground
+      style={{ width: "100%", height: "100%", flex: 1 }}
+      resizeMode="cover"
+      source={require("../assets/wall2.jpg")}
+    >
+      <Image source={require("../assets/mainLogo.png")} style={styles.logo} />
+      <View style={styles.container}>
+        <Text style={{ fontSize: 30, color: "#fbde30", marginBottom: "5%" }}>
+          Register
+        </Text>
+        {/* <View style={styles.inputWrap}>
         <TextInput
           style={styles.input1}
           autoCapitalize="none"
@@ -84,61 +94,63 @@ const RegisterScreen = ({ navigation }) => {
         />
       </View>
        */}
-      <View style={styles.inputWrap}>
-        <TextInput
-          style={styles.input1}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="email-address"
-          returnKeyType="next"
-          placeholder="Email"
-          placeholderTextColor="#BDBDBD"
-          // value={chars}
-          //   value={props.values.username}
-          onChangeText={(text) => {
-            console.log(text);
-            // setChars(text);
-            setEmail(text);
-            // callUsernameApi(text);
-          }}
-          //   ref={textinputemail}
-          value={email}
-        />
-      </View>
-      <View style={styles.inputWrap}>
-        <TextInput
-          style={styles.input1}
-          autoCapitalize="none"
-          autoCorrect={false}
-          // keyboardType="password"
-          returnKeyType="next"
-          placeholder="Password"
-          placeholderTextColor="#BDBDBD"
-          // value={chars}
-          //   value={props.values.username}
-          onChangeText={(text) => {
-            console.log(text);
-            // setChars(text);
-            setPass(text);
-            // callUsernameApi(text);
-          }}
-          //   ref={textinputemail}
-          value={pass}
-        />
-      </View>
-      <View>
-        <TouchableOpacity>
-          <Text style={styles.button} onPress={Register}>
-            Sign Up
+        <View style={styles.inputWrap}>
+          <TextInput
+            style={styles.input1}
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            returnKeyType="next"
+            placeholder="Email"
+            placeholderTextColor="#f34949"
+            // value={chars}
+            //   value={props.values.username}
+            onChangeText={(text) => {
+              console.log(text);
+              // setChars(text);
+              setEmail(text);
+              // callUsernameApi(text);
+            }}
+            //   ref={textinputemail}
+            value={email}
+          />
+        </View>
+        <View style={styles.inputWrap}>
+          <TextInput
+            style={styles.input1}
+            autoCapitalize="none"
+            autoCorrect={false}
+            // keyboardType="password"
+            returnKeyType="next"
+            placeholder="Password"
+            placeholderTextColor="#f34949"
+            // value={chars}
+            //   value={props.values.username}
+            onChangeText={(text) => {
+              console.log(text);
+              // setChars(text);
+              setPass(text);
+              // callUsernameApi(text);
+            }}
+            //   ref={textinputemail}
+            value={pass}
+          />
+        </View>
+        <View style={{ width: "90%" }}>
+          <TouchableOpacity style={{ marginTop: 10 }} onPress={Register}>
+            <Text style={styles.button}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={{ marginTop: 10 }} onPress={continueToLogin}>
+            <Text style={styles.button}>Login Page</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={{ fontSize: 15, color: "#fbde30" }}>
+            made by Souvik Das
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.button} onPress={continueToLogin}>
-            Login Page
-          </Text>
-        </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -147,7 +159,7 @@ export default RegisterScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -162,7 +174,7 @@ const styles = StyleSheet.create({
     height: 56,
     marginTop: 10,
     borderWidth: 2,
-    borderColor: "#FFF395",
+    borderColor: "#f34949",
     backgroundColor: "white",
     borderRadius: 35,
     opacity: 0.6,
@@ -170,13 +182,18 @@ const styles = StyleSheet.create({
     width: "90%",
   },
   button: {
-    backgroundColor: "#FFF395",
+    backgroundColor: "#f34949",
     padding: 10,
-    marginTop: 10,
+    // marginTop: 10,
     borderRadius: 35,
-    width: "90%",
+    width: "100%",
     textAlign: "center",
     fontSize: 20,
-    color: "black",
+    color: "#fbde30",
+  },
+  logo: {
+    alignSelf: "center",
+    marginTop: "13%",
+    marginBottom: "-45%",
   },
 });
